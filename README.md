@@ -22,9 +22,10 @@ WHEN I refresh the page
 THEN the saved events persist
 
 ## Screenshot of Deployed Website
-
+![Deployed Website Screenshot](Deployed_app.png)
 
 ## Link to Deployed Website
+https://davidrodriguez119.github.io/Day-Scheduler/
 
 ## Technologies
 

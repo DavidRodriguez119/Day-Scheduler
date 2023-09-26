@@ -3,7 +3,6 @@
 // in the html.
 var currentDay = $(`#currentDay`)
 var saveBtns = $(`.saveBtn`)
-var data = {};
 
 $(function () {
   // TODO: Add a listener for click events on the save button. This code should
@@ -12,11 +11,26 @@ $(function () {
   // function? How can DOM traversal be used to get the "hour-x" id of the
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
+
   saveBtns.on(`click`, function(){
     // Assign a variable to the parent container
     var parentDiv = $(this).parent();
-    // Get the Id of the parent Div
-    var parentId = parentDiv.attr(`id`)
+
+    // Assign a variable to the textarea inside the parent container
+    var textSelected = parentDiv.find(`textarea`).val();
+    
+    // check if the textarea inside the parent container has any text bo be saved
+    if (textSelected == ``) {
+      alert(`There is not text to be saved`);
+    } else {
+      // Get the Id of the parent Div
+      var parentId = parentDiv.attr(`id`);
+
+      // add the text inside the data object using the id of the div in which it is located as the key name
+      localStorage.setItem(parentId, textSelected);
+    }
+
+
     
   });
   // TODO: Add code to apply the past, present, or future class to each time
@@ -36,10 +50,20 @@ $(function () {
     } else {
       timeSection.addClass(`present`)
     };
+
+    // TODO: Add code to get any user input that was saved in localStorage and set
+    // the values of the corresponding textarea elements. HINT: How can the id
+    // attribute of each time-block be used to do this?
+    var retrievedData = localStorage.getItem(`hour-` + i)
+    if (retrievedData === null) {
+
+    } else {
+      var textArea = timeSection.find(`textarea`);
+      textArea.val(retrievedData)
+    }
+
   }
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
+
 
   // TODO: Add code to display the current date in the header of the page.
   currentDay.text(dayjs().format(`MMM DD, YYYY`))
